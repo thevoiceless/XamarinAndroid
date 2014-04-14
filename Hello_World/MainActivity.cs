@@ -18,7 +18,6 @@ namespace Hello_World
 	public class MainActivity : Activity
 	{
 		private int count = 1;
-		private Toast t;
 
 		protected override void OnCreate(Bundle bundle)
 		{
@@ -35,7 +34,8 @@ namespace Hello_World
 			// or
 			//   button.Click += delegate(object sender, EventArgs e) { ... };
 			countButton.Click += delegate {
-//				countButton.Text = string.Format(Resources.GetString(Resource.String.number_of_clicks), count++);
+				// Could also set the text directly via
+				//   countButton.Text = string.Format(Resources.GetString(Resource.String.number_of_clicks), count++);
 				countButton.SetText(string.Format(Resources.GetString(Resource.String.number_of_clicks), count++), TextView.BufferType.Normal);
 			};
 
@@ -49,18 +49,25 @@ namespace Hello_World
 			 * Multiple ways to send GET request
 			 */
 
-
 			String json = "{\"key\":\"value\"}";
 			var url = new Uri(String.Format("http://validate.jsontest.com/?json={0}", json));
+			var badurl = new Uri(String.Format("http://validate.bad.jsontest.com/?json={0}", json));
 
 			// Method 1 - WebClient
 			networkRequestButton.Click += delegate {
 				var webClient = new WebClient ();
-				webClient.DownloadStringCompleted += (s, e) => {
-					var text = e.Result;
-					PrintResult(1, text);
+				webClient.DownloadStringCompleted += (sender, eventArgs) => {
+					try
+					{
+						var text = eventArgs.Result;
+						PrintResult(1, text);
+					}
+					catch (Exception ex)
+					{
+						PrintResult(1, ex.InnerException.ToString());
+					}
 				};
-				webClient.DownloadStringAsync (url);
+				webClient.DownloadStringAsync(badurl);
 			};
 
 			// Method 2 - WebRequest
@@ -69,7 +76,7 @@ namespace Hello_World
 				request.BeginGetResponse(Method2, request);
 			};
 
-			// Method 3 - HttpClient
+			// Method 3 - HttpClient (requires async and await)
 			networkRequestButton.Click += async delegate {
 				Task<String> contentsTask = Method3(url);
 				String result = await contentsTask;
@@ -102,10 +109,8 @@ namespace Hello_World
 
 		private void PrintResult(int methodNum, String result)
 		{
-			Console.WriteLine("Method " + methodNum);
+			Console.WriteLine("----- Method " + methodNum + "-----");
 			Console.WriteLine(result);
-//			t = Toast.MakeText(this, Resources.GetString(Resource.String.network_request) + " " + methodNum, ToastLength.Short);
-//			t.Show();
 		}
 	}
 }
