@@ -72,15 +72,23 @@ namespace Hello_World
 
 			// Method 2 - WebRequest
 			networkRequestButton.Click += delegate {
-				var request = WebRequest.Create(badurl);
+				var request = WebRequest.Create(url);
 				request.BeginGetResponse(Method2, request);
 			};
 
 			// Method 3 - HttpClient (requires async and await)
 			networkRequestButton.Click += async delegate {
-				Task<String> contentsTask = Method3(url);
-				String result = await contentsTask;
-				PrintResult(3, result);
+				Task<String> contentsTask = Method3(badurl);
+				try
+				{
+					String result = await contentsTask;
+					PrintResult(3, result);
+				}
+				catch (Exception e)
+				{
+//					PrintResult(3, e.ToString());
+					PrintResult(3, e.Message);
+				}
 			};
 		}
 
