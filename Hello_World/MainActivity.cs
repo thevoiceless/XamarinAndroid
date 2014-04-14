@@ -62,17 +62,17 @@ namespace Hello_World
 						var text = eventArgs.Result;
 						PrintResult(1, text);
 					}
-					catch (Exception ex)
+					catch (Exception e)
 					{
-						PrintResult(1, ex.InnerException.ToString());
+						PrintResult(1, e.InnerException.ToString());
 					}
 				};
-				webClient.DownloadStringAsync(badurl);
+				webClient.DownloadStringAsync(url);
 			};
 
 			// Method 2 - WebRequest
 			networkRequestButton.Click += delegate {
-				var request = WebRequest.Create (url);
+				var request = WebRequest.Create(badurl);
 				request.BeginGetResponse(Method2, request);
 			};
 
@@ -94,7 +94,10 @@ namespace Hello_World
 				var reader = new System.IO.StreamReader(response.GetResponseStream());
 				PrintResult(2, reader.ReadToEnd());
 			}
-			catch (Exception e) { }
+			catch (Exception e)
+			{
+				PrintResult(2, e.ToString());
+			}
 		}
 
 		// Used with "Method 3" above
@@ -109,7 +112,7 @@ namespace Hello_World
 
 		private void PrintResult(int methodNum, String result)
 		{
-			Console.WriteLine("----- Method " + methodNum + "-----");
+			Console.WriteLine("----- Method " + methodNum + " -----");
 			Console.WriteLine(result);
 		}
 	}
