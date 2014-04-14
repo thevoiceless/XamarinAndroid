@@ -6,4 +6,7 @@
 	<string name="number_of_clicks">{0} clicks!</string>
 	<string name="new_activity">New Activity</string>
 	<string name="second_activity_text">This is the second activity</string>
+	<string name="second_activity_text_no_intent">This is the second activity, no text from intent</string>
+	<string name="intent_key_1">key1</string>
+	<string name="network_request">Network request</string>
 </resources>

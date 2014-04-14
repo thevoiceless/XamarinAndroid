@@ -22,6 +22,7 @@ namespace Hello_World
 			SetContentView (Resource.Layout.Main);
 			Button countButton = FindViewById<Button> (Resource.Id.countButton);
 			Button newActivityButton = FindViewById<Button> (Resource.Id.newActivityButton);
+			Button networkRequestButton = FindViewById<Button> (Resource.Id.networkRequestButton);
 
 			// Could also use
 			//   button.Click += (sender, e) => { ... };
@@ -31,8 +32,15 @@ namespace Hello_World
 //				countButton.Text = string.Format(Resources.GetString(Resource.String.number_of_clicks), count++);
 				countButton.SetText(string.Format(Resources.GetString(Resource.String.number_of_clicks), count++), TextView.BufferType.Normal);
 			};
+
 			newActivityButton.Click += delegate {
-				StartActivity(typeof(SecondActivity));
+				var secondIntent = new Intent(this, typeof(SecondActivity));
+				secondIntent.PutExtra(Resources.GetString(Resource.String.intent_key_1), Resources.GetString(Resource.String.second_activity_text));
+				StartActivity(secondIntent);
+			};
+
+			networkRequestButton.Click += delegate {
+				Toast.MakeText(this, Resource.String.network_request, ToastLength.Short).Show();
 			};
 		}
 	}

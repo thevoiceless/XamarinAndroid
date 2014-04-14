@@ -19,6 +19,10 @@ namespace Hello_World
 			base.OnCreate (bundle);
 
 			SetContentView (Resource.Layout.Second);
+
+			var label = FindViewById<TextView> (Resource.Id.text);
+			// Use null coalescing operator to check for null
+			label.Text = Intent.GetStringExtra (Resources.GetString(Resource.String.intent_key_1)) ?? Resources.GetString (Resource.String.second_activity_text_no_intent);
 		}
 	}
 }

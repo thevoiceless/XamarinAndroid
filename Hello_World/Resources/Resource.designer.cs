@@ -63,11 +63,14 @@ namespace Hello_World
 			// aapt resource value: 0x7f050000
 			public const int countButton = 2131034112;
 			
+			// aapt resource value: 0x7f050002
+			public const int networkRequestButton = 2131034114;
+			
 			// aapt resource value: 0x7f050001
 			public const int newActivityButton = 2131034113;
 			
-			// aapt resource value: 0x7f050002
-			public const int text = 2131034114;
+			// aapt resource value: 0x7f050003
+			public const int text = 2131034115;
 			
 			static Id()
 			{
@@ -107,6 +110,12 @@ namespace Hello_World
 			// aapt resource value: 0x7f040001
 			public const int click_me = 2130968577;
 			
+			// aapt resource value: 0x7f040006
+			public const int intent_key_1 = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int network_request = 2130968583;
+			
 			// aapt resource value: 0x7f040003
 			public const int new_activity = 2130968579;
 			
@@ -115,6 +124,9 @@ namespace Hello_World
 			
 			// aapt resource value: 0x7f040004
 			public const int second_activity_text = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int second_activity_text_no_intent = 2130968581;
 			
 			static String()
 			{

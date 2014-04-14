@@ -5,12 +5,17 @@
     android:layout_height="fill_parent">
     <Button
         android:id="@+id/countButton"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/click_me" />
     <Button
         android:id="@+id/newActivityButton"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/new_activity" />
+    <Button
+        android:id="@+id/networkRequestButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/network_request" />
 </LinearLayout>
