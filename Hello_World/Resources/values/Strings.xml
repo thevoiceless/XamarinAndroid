@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Hello_World</string>
+
+	<string name="click_me">Click Me!</string>
+	<string name="number_of_clicks">{0} clicks!</string>
+	<string name="new_activity">New Activity</string>
+	<string name="second_activity_text">This is the second activity</string>
 </resources>

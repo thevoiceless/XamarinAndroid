@@ -61,7 +61,13 @@ namespace Hello_World
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			public const int countButton = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int newActivityButton = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int text = 2131034114;
 			
 			static Id()
 			{
@@ -79,6 +85,9 @@ namespace Hello_World
 			// aapt resource value: 0x7f030000
 			public const int Main = 2130903040;
 			
+			// aapt resource value: 0x7f030001
+			public const int Second = 2130903041;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -92,11 +101,20 @@ namespace Hello_World
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
-			
 			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			public const int app_name = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int click_me = 2130968577;
+			
+			// aapt resource value: 0x7f040003
+			public const int new_activity = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int number_of_clicks = 2130968578;
+			
+			// aapt resource value: 0x7f040004
+			public const int second_activity_text = 2130968580;
 			
 			static String()
 			{
