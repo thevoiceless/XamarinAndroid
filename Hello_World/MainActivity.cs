@@ -64,7 +64,7 @@ namespace Hello_World
 					}
 					catch (Exception e)
 					{
-						PrintResult(1, e.InnerException.ToString());
+						PrintResult(1, e.InnerException.Message);
 					}
 				};
 				webClient.DownloadStringAsync(url);
@@ -72,13 +72,13 @@ namespace Hello_World
 
 			// Method 2 - WebRequest
 			networkRequestButton.Click += delegate {
-				var request = WebRequest.Create(url);
+				var request = WebRequest.Create(badurl);
 				request.BeginGetResponse(Method2, request);
 			};
 
 			// Method 3 - HttpClient (requires async and await)
 			networkRequestButton.Click += async delegate {
-				Task<String> contentsTask = Method3(badurl);
+				Task<String> contentsTask = Method3(url);
 				try
 				{
 					String result = await contentsTask;
@@ -86,7 +86,6 @@ namespace Hello_World
 				}
 				catch (Exception e)
 				{
-//					PrintResult(3, e.ToString());
 					PrintResult(3, e.Message);
 				}
 			};
@@ -104,7 +103,7 @@ namespace Hello_World
 			}
 			catch (Exception e)
 			{
-				PrintResult(2, e.ToString());
+				PrintResult(2, e.Message);
 			}
 		}
 
