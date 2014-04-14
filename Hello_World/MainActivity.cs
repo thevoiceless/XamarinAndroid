@@ -81,11 +81,13 @@ namespace Hello_World
 				Task<String> contentsTask = Method3(url);
 				try
 				{
+					// "await" returns control to the caller and the task continues to run on another thread
 					String result = await contentsTask;
 					PrintResult(3, result);
 				}
 				catch (Exception e)
 				{
+					// Exceptions that occur inside an async method are stored in the task and thrown when the task is awaited
 					PrintResult(3, e.Message);
 				}
 			};
@@ -112,8 +114,9 @@ namespace Hello_World
 		{
 			var httpClient = new HttpClient();
 			Task<String> contentsTask = httpClient.GetStringAsync(url);
-			// "await" returns control to the caller and the task continues to run on another thread
+			// Wait on the Task returned by GetStringAsync
 			String contents = await contentsTask;
+			// Task<TResult> returns an object of type TResult, in this case String
 			return contents;
 		}
 
