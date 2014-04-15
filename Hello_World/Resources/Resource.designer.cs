@@ -26,6 +26,8 @@ namespace Hello_World
 		
 		public static void UpdateIdValues()
 		{
+			global::SQLite.Resource.String.ApplicationName = global::Hello_World.Resource.String.ApplicationName;
+			global::SQLite.Resource.String.Hello = global::Hello_World.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -47,6 +49,9 @@ namespace Hello_World
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
 			
+			// aapt resource value: 0x7f020001
+			public const int monoandroidsplash = 2130837505;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -60,17 +65,17 @@ namespace Hello_World
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int countButton = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int countButton = 2131099648;
 			
-			// aapt resource value: 0x7f050002
-			public const int networkRequestButton = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int networkRequestButton = 2131099650;
 			
-			// aapt resource value: 0x7f050001
-			public const int newActivityButton = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int newActivityButton = 2131099649;
 			
-			// aapt resource value: 0x7f050003
-			public const int text = 2131034115;
+			// aapt resource value: 0x7f060003
+			public const int text = 2131099651;
 			
 			static Id()
 			{
@@ -104,29 +109,35 @@ namespace Hello_World
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040000
-			public const int app_name = 2130968576;
-			
 			// aapt resource value: 0x7f040001
-			public const int click_me = 2130968577;
+			public const int ApplicationName = 2130968577;
 			
-			// aapt resource value: 0x7f040006
-			public const int intent_key_1 = 2130968582;
-			
-			// aapt resource value: 0x7f040007
-			public const int network_request = 2130968583;
-			
-			// aapt resource value: 0x7f040003
-			public const int new_activity = 2130968579;
+			// aapt resource value: 0x7f040000
+			public const int Hello = 2130968576;
 			
 			// aapt resource value: 0x7f040002
-			public const int number_of_clicks = 2130968578;
+			public const int app_name = 2130968578;
 			
-			// aapt resource value: 0x7f040004
-			public const int second_activity_text = 2130968580;
+			// aapt resource value: 0x7f040003
+			public const int click_me = 2130968579;
+			
+			// aapt resource value: 0x7f040008
+			public const int intent_key_1 = 2130968584;
+			
+			// aapt resource value: 0x7f040009
+			public const int network_request = 2130968585;
 			
 			// aapt resource value: 0x7f040005
-			public const int second_activity_text_no_intent = 2130968581;
+			public const int new_activity = 2130968581;
+			
+			// aapt resource value: 0x7f040004
+			public const int number_of_clicks = 2130968580;
+			
+			// aapt resource value: 0x7f040006
+			public const int second_activity_text = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int second_activity_text_no_intent = 2130968583;
 			
 			static String()
 			{
@@ -134,6 +145,22 @@ namespace Hello_World
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int Mono_Android_Theme_Splash = 2131034112;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

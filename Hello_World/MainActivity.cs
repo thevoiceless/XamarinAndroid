@@ -2,8 +2,10 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using SQLite;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -18,16 +20,18 @@ namespace Hello_World
 	public class MainActivity : Activity
 	{
 		private int count = 1;
+		private Button countButton, newActivityButton, networkRequestButton;
+		private SQLiteAsyncConnection conn;
 
 		protected override void OnCreate(Bundle bundle)
 		{
 			// base = super
 			base.OnCreate(bundle);
 
-			SetContentView (Resource.Layout.Main);
-			Button countButton = FindViewById<Button> (Resource.Id.countButton);
-			Button newActivityButton = FindViewById<Button> (Resource.Id.newActivityButton);
-			Button networkRequestButton = FindViewById<Button> (Resource.Id.networkRequestButton);
+			SetContentView(Resource.Layout.Main);
+			countButton = FindViewById<Button>(Resource.Id.countButton);
+			newActivityButton = FindViewById<Button>(Resource.Id.newActivityButton);
+			networkRequestButton = FindViewById<Button>(Resource.Id.networkRequestButton);
 
 			// Could also use
 			//   button.Click += (sender, e) => { ... };
@@ -95,6 +99,22 @@ namespace Hello_World
 					PrintResult(3, e.Message);
 				}
 			};
+
+
+			String folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+			conn = new SQLiteAsyncConnection(Path.Combine(folder, "test.db"));
+			conn.CreateTableAsync<ValidatedJSONResponse>().ContinueWith(async result => {
+				Console.WriteLine ("Table created!");
+				PrintTable();
+			});
+
+		}
+
+		private async void PrintTable()
+		{
+			Console.WriteLine(await conn.Table<ValidatedJSONResponse>().CountAsync());
+			List<ValidatedJSONResponse> a = await conn.Table<ValidatedJSONResponse>().ToListAsync();
+			Console.WriteLine(a.ToArray());
 		}
 
 		// Used with "Method 2" above
@@ -131,6 +151,19 @@ namespace Hello_World
 			Console.WriteLine("----- Method " + methodNum + " -----");
 			Console.WriteLine(result);
 		}
+	}
+
+	public class ValidatedJSONResponse
+	{
+		// These are attributes
+		[PrimaryKey, AutoIncrement]
+		// This is a property
+		public int Id { get; set; }
+		public String ObjOrArr { get; set; }
+		public bool Empty { get; set; }
+		public long ParseTimeNs { get; set; }
+		public bool Valid { get; set; }
+		public int Size { get; set; }
 	}
 }
 
