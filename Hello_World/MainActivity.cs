@@ -54,6 +54,7 @@ namespace Hello_World
 			var badurl = new Uri(String.Format("http://validate.bad.jsontest.com/?json={0}", json));
 
 			// Method 1 - WebClient
+			/*
 			networkRequestButton.Click += delegate {
 				var webClient = new WebClient ();
 				webClient.DownloadStringCompleted += (sender, eventArgs) => {
@@ -69,12 +70,15 @@ namespace Hello_World
 				};
 				webClient.DownloadStringAsync(url);
 			};
+			*/
 
 			// Method 2 - WebRequest
+			/*
 			networkRequestButton.Click += delegate {
-				var request = WebRequest.Create(badurl);
+				var request = WebRequest.Create(url);
 				request.BeginGetResponse(Method2, request);
 			};
+			*/
 
 			// Method 3 - HttpClient (requires async and await)
 			networkRequestButton.Click += async delegate {
@@ -94,6 +98,7 @@ namespace Hello_World
 		}
 
 		// Used with "Method 2" above
+		/*
 		private void Method2(IAsyncResult result)
 		{
 			var request = result.AsyncState as HttpWebRequest;
@@ -108,6 +113,7 @@ namespace Hello_World
 				PrintResult(2, e.Message);
 			}
 		}
+		*/
 
 		// Used with "Method 3" above
 		private async Task<String> Method3(Uri url)
