@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using SQLite;
+using Newtonsoft.Json;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -32,6 +33,12 @@ namespace Hello_World
 			countButton = FindViewById<Button>(Resource.Id.countButton);
 			newActivityButton = FindViewById<Button>(Resource.Id.newActivityButton);
 			networkRequestButton = FindViewById<Button>(Resource.Id.networkRequestButton);
+
+			String folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+			conn = new SQLiteAsyncConnection(Path.Combine(folder, "test.db"));
+			conn.CreateTableAsync<JSONResponse>().ContinueWith(t => {
+				Console.WriteLine("Connected to DB");
+			});
 
 			// Could also use
 			//   button.Click += (sender, e) => { ... };
@@ -91,7 +98,12 @@ namespace Hello_World
 				{
 					// "await" returns control to the caller and the task continues to run on another thread
 					String result = await contentsTask;
-					PrintResult(3, result);
+//					PrintResult(3, result);
+
+					JSONResponse resultObj = JsonConvert.DeserializeObject<JSONResponse>(result);
+					conn.InsertAsync(resultObj).ContinueWith(t => {
+						PrintTable();
+					});
 				}
 				catch (Exception e)
 				{
@@ -99,22 +111,11 @@ namespace Hello_World
 					PrintResult(3, e.Message);
 				}
 			};
-
-
-			String folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-			conn = new SQLiteAsyncConnection(Path.Combine(folder, "test.db"));
-			conn.CreateTableAsync<ValidatedJSONResponse>().ContinueWith(async result => {
-				Console.WriteLine ("Table created!");
-				PrintTable();
-			});
-
 		}
 
 		private async void PrintTable()
 		{
-			Console.WriteLine(await conn.Table<ValidatedJSONResponse>().CountAsync());
-			List<ValidatedJSONResponse> a = await conn.Table<ValidatedJSONResponse>().ToListAsync();
-			Console.WriteLine(a.ToArray());
+			Console.WriteLine("{0} items in table", await conn.Table<JSONResponse>().CountAsync());
 		}
 
 		// Used with "Method 2" above
@@ -153,7 +154,7 @@ namespace Hello_World
 		}
 	}
 
-	public class ValidatedJSONResponse
+	public class JSONResponse
 	{
 		// These are attributes
 		[PrimaryKey, AutoIncrement]
