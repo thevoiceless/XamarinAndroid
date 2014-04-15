@@ -35,6 +35,7 @@ namespace Hello_World
 			networkRequestButton = FindViewById<Button>(Resource.Id.networkRequestButton);
 
 			String folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+			Console.WriteLine(folder);
 			conn = new SQLiteAsyncConnection(Path.Combine(folder, "test.db"));
 			conn.CreateTableAsync<JSONResponse>().ContinueWith(t => {
 				Console.WriteLine("Connected to DB");
@@ -83,22 +84,48 @@ namespace Hello_World
 			};
 			*/
 
-			// Method 2 - WebRequest
+			// Method 2 - WebRequest/HttpWebRequest
 			/*
 			networkRequestButton.Click += delegate {
 				var request = WebRequest.Create(url);
 				request.BeginGetResponse(Method2, request);
 			};
+			networkRequestButton.Click += delegate {
+				var request = HttpWebRequest.Create(url);
+				request.ContentType = "text/html";
+				request.Method = "GET";
+				try
+				{
+					using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+					{
+						if (response.StatusCode != HttpStatusCode.OK)
+						{
+							PrintResult(2, String.Format("Error, status code: {0}", response.StatusCode));
+						}
+
+						using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+						{
+							var content = reader.ReadToEnd();
+							PrintResult(2, content);
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					PrintResult(2, e.Message);
+				}
+			};
 			*/
 
 			// Method 3 - HttpClient (requires async and await)
+			/*
 			networkRequestButton.Click += async delegate {
 				Task<String> contentsTask = Method3(url);
 				try
 				{
 					// "await" returns control to the caller and the task continues to run on another thread
 					String result = await contentsTask;
-//					PrintResult(3, result);
+					PrintResult(3, result);
 
 					JSONResponse resultObj = JsonConvert.DeserializeObject<JSONResponse>(result);
 					conn.InsertAsync(resultObj).ContinueWith(t => {
@@ -111,6 +138,7 @@ namespace Hello_World
 					PrintResult(3, e.Message);
 				}
 			};
+			*/
 		}
 
 		private async void PrintTable()
