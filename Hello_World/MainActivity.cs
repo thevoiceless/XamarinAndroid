@@ -118,7 +118,6 @@ namespace Hello_World
 			*/
 
 			// Method 3 - HttpClient (requires async and await)
-			/*
 			networkRequestButton.Click += async delegate {
 				Task<String> contentsTask = Method3(url);
 				try
@@ -138,7 +137,6 @@ namespace Hello_World
 					PrintResult(3, e.Message);
 				}
 			};
-			*/
 		}
 
 		private async void PrintTable()
